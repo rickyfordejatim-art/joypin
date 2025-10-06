@@ -3,17 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing, Employee Relations">
+  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing">
   <title>Ricky Putra F. — HR Specialist</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
+      --bg: #ffffff;
+      --text: #333333;
       --primary: #2c3e50;
       --accent: #3498db;
-      --light: #f8f9fa;
-      --gray: #7f8c8d;
+      --light-bg: #f8f9fa;
       --border: #eaeaea;
+      --card-bg: #ffffff;
+      --shadow: rgba(0,0,0,0.08);
     }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --light-bg: #1e1e1e;
+      --border: #333;
+      --card-bg: #1a1a1a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -22,8 +34,9 @@
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
       line-height: 1.6;
-      color: #333;
-      background: #fff;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
       padding: 20px;
     }
     .container {
@@ -53,10 +66,9 @@
       gap: 16px;
       margin-top: 12px;
       font-size: 0.95rem;
-      color: var(--gray);
     }
     .contact-icons a {
-      color: var(--gray);
+      color: var(--text);
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -66,9 +78,22 @@
     .contact-icons a:hover {
       color: var(--accent);
     }
-    .contact-icons i {
-      width: 20px;
-      text-align: center;
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 6px var(--shadow);
     }
 
     .main-content {
@@ -79,6 +104,10 @@
     @media (max-width: 768px) {
       .main-content {
         grid-template-columns: 1fr;
+      }
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
       }
     }
 
@@ -97,13 +126,15 @@
       margin-bottom: 24px;
       padding: 16px;
       border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
+      background: var(--card-bg);
+      box-shadow: 0 2px 6px var(--shadow);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
     }
-    .job:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    .job.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .job-header {
       display: flex;
@@ -120,7 +151,7 @@
       font-weight: 600;
     }
     .date {
-      color: var(--gray);
+      color: #7f8c8d;
       font-style: italic;
     }
     .responsibilities {
@@ -132,7 +163,7 @@
     }
 
     .sidebar {
-      background: var(--light);
+      background: var(--light-bg);
       padding: 20px;
       border-radius: 10px;
       align-self: start;
@@ -143,12 +174,12 @@
       gap: 8px;
     }
     .skill-tag {
-      background: white;
+      background: var(--card-bg);
       padding: 6px 12px;
       border-radius: 20px;
       font-size: 0.85rem;
-      color: var(--primary);
-      border: 1px solid #ddd;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
     .qr-section {
@@ -179,17 +210,44 @@
       background: #2980b9;
     }
 
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
       padding-top: 20px;
-      color: var(--gray);
+      color: #7f8c8d;
       font-size: 0.9rem;
       border-top: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </div>
+
   <div class="container">
     <header>
       <h1 class="name">Ricky Putra F.</h1>
@@ -204,7 +262,6 @@
         <a href="https://linkedin.com/in/ricky-putra-febrianto" target="_blank" rel="noopener">
           <i class="fab fa-linkedin"></i> linkedin.com/in/ricky-putra-febrianto
         </a>
-        <span><i class="fas fa-map-marker-alt"></i> Sidoarjo, East Java</span>
       </div>
     </header>
 
@@ -222,80 +279,19 @@
         <section class="section">
           <h2 class="section-title">Work Experience</h2>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">Relationship Officer</span> at <span class="company">PT Shelter Indonesia</span></div>
-              <div class="date">Jan 2025 – Present</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Managing workforce for client PT Bayer Indonesia (80 manpower)</li>
-              <li>Handling recruitment, coaching, employee administration, payroll, and disciplinary actions</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">Relationship Officer</span> at <span class="company">PT Shelter Indonesia</span></div><div class="date">Jan 2025 – Present</div></div><ul class="responsibilities"><li>Managing workforce for client PT Bayer Indonesia (80 manpower)</li><li>Handling recruitment, coaching, employee administration, payroll, and disciplinary actions</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">Project Officer Area</span> at <span class="company">PT FORDE INDONESIA</span></div>
-              <div class="date">Dec 2023 – Dec 2024</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Managed workforce for PT Mengniu Dairy Indonesia (50) and PT Cosmo Technology Indonesia / REALME (580)</li>
-              <li>Responsible for recruitment, coaching, payroll, employee administration, and disciplinary procedures</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">Project Officer Area</span> at <span class="company">PT FORDE INDONESIA</span></div><div class="date">Dec 2023 – Dec 2024</div></div><ul class="responsibilities"><li>Managed workforce for PT Mengniu Dairy Indonesia (50) and PT Cosmo Technology Indonesia / REALME (580)</li><li>Responsible for recruitment, coaching, payroll, employee administration, and disciplinary procedures</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">Human Resources Area</span> at <span class="company">PT CATUR MULIA MANDIRI</span></div>
-              <div class="date">Oct 2022 – Dec 2023</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Handled 225 manpower for PT Multi Spunindo Jaya (Non-Woven Manufacture)</li>
-              <li>Managed recruitment, shift scheduling, BPJS, PKWT, disciplinary actions, and emergency labor supply</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">Human Resources Area</span> at <span class="company">PT CATUR MULIA MANDIRI</span></div><div class="date">Oct 2022 – Dec 2023</div></div><ul class="responsibilities"><li>Handled 225 manpower for PT Multi Spunindo Jaya (Non-Woven Manufacture)</li><li>Managed recruitment, shift scheduling, BPJS, PKWT, disciplinary actions, and emergency labor supply</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">HR Development Staff</span> at <span class="company">PT FIRST INDONESIA REFURBISH MANUFACTURING</span></div>
-              <div class="date">May 2022 – Sep 2022</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Recruitment & selection, SOP creation, employee assessments, PKWT, payroll, outsourcing, BPJS</li>
-              <li>Managed 60 manpower across departments</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">HR Development Staff</span> at <span class="company">PT FIRST INDONESIA REFURBISH MANUFACTURING</span></div><div class="date">May 2022 – Sep 2022</div></div><ul class="responsibilities"><li>Recruitment & selection, SOP creation, employee assessments, PKWT, payroll, outsourcing, BPJS</li><li>Managed 60 manpower across departments</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">Operational Specialist</span> at <span class="company">INHIVEN DESIGN</span></div>
-              <div class="date">Nov 2020 – Mar 2022</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Executed projects for clients: Luqman Al Hakim High School & BECIS Indonesia</li>
-              <li>Handled recruitment, supplier/client communication, and website management</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">Operational Specialist</span> at <span class="company">INHIVEN DESIGN</span></div><div class="date">Nov 2020 – Mar 2022</div></div><ul class="responsibilities"><li>Executed projects for clients: Luqman Al Hakim High School & BECIS Indonesia</li><li>Handled recruitment, supplier/client communication, and website management</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">Operations Support</span> at <span class="company">Dapur Dewi Kahyangan Sidoarjo</span></div>
-              <div class="date">Jun 2019 – Jan 2020</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Recruited staff, scheduled shifts, monitored SOPs, managed payroll (35 manpower)</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">Operations Support</span> at <span class="company">Dapur Dewi Kahyangan Sidoarjo</span></div><div class="date">Jun 2019 – Jan 2020</div></div><ul class="responsibilities"><li>Recruited staff, scheduled shifts, monitored SOPs, managed payroll (35 manpower)</li></ul></div>
 
-          <div class="job">
-            <div class="job-header">
-              <div><span class="job-title">HR Intern</span> at <span class="company">PT Thong Putra Jayasentosa</span></div>
-              <div class="date">Jun 2017 – Aug 2017</div>
-            </div>
-            <ul class="responsibilities">
-              <li>Managed branch files, selected assessment tools, explained work agreements to new hires</li>
-            </ul>
-          </div>
+          <div class="job"><div class="job-header"><div><span class="job-title">HR Intern</span> at <span class="company">PT Thong Putra Jayasentosa</span></div><div class="date">Jun 2017 – Aug 2017</div></div><ul class="responsibilities"><li>Managed branch files, selected assessment tools, explained work agreements to new hires</li></ul></div>
         </section>
 
         <section class="section">
@@ -338,7 +334,7 @@
 
         <div class="qr-section">
           <p>📱 Scan to view resume</p>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.space" alt="QR Code to Resume">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.space" alt="QR Code">
           <br>
           <a href="resume.pdf" download="Ricky_Putra_Resume_2025.pdf" class="download-btn">
             <i class="fas fa-file-pdf"></i> Download PDF
@@ -351,5 +347,63 @@
       <p>© 2025 Ricky Putra F. | Optimized for ATS & Human Readers</p>
     </footer>
   </div>
+
+  <div class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const body = document.body;
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+      body.setAttribute('data-theme', 'dark');
+      icon.className = 'fas fa-sun';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        body.removeAttribute('data-theme');
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Scroll Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.job').forEach(job => {
+      observer.observe(job);
+    });
+
+    // Scroll to Top Button
+    const scrollToTop = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollToTop.classList.add('show');
+      } else {
+        scrollToTop.classList.remove('show');
+      }
+    });
+
+    scrollToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>

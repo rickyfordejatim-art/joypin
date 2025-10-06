@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing">
+  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing, Employee Relations">
   <title>Ricky Putra F. — HR Specialist</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -54,6 +54,17 @@
       margin-top: 12px;
       font-size: 0.95rem;
       color: var(--gray);
+    }
+    .contact-icons a {
+      color: var(--gray);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .contact-icons a:hover {
+      color: var(--accent);
     }
     .contact-icons i {
       width: 20px;
@@ -159,6 +170,10 @@
       font-weight: 600;
       margin-top: 10px;
       transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     .download-btn:hover {
       background: #2980b9;
@@ -180,10 +195,16 @@
       <h1 class="name">Ricky Putra F.</h1>
       <div class="title">Human Resources & Operations Professional</div>
       <div class="contact-icons">
-        <span><i class="fas fa-phone"></i> +62 856-0666-8161</span>
-        <span><i class="fas fa-envelope"></i> Rickyputraf@gmail.com</span>
+        <a href="https://wa.me/6285606668161" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> +62 856-0666-8161
+        </a>
+        <a href="mailto:Rickyputraf@gmail.com" target="_blank" rel="noopener">
+          <i class="fas fa-envelope"></i> Rickyputraf@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/ricky-putra-febrianto" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin"></i> linkedin.com/in/ricky-putra-febrianto
+        </a>
         <span><i class="fas fa-map-marker-alt"></i> Sidoarjo, East Java</span>
-        <span><i class="fab fa-linkedin"></i> linkedin.com/in/ricky-putra-febrianto</span>
       </div>
     </header>
 
@@ -317,7 +338,7 @@
 
         <div class="qr-section">
           <p>📱 Scan to view resume</p>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.space" alt="QR Code">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.space" alt="QR Code to Resume">
           <br>
           <a href="resume.pdf" download="Ricky_Putra_Resume_2025.pdf" class="download-btn">
             <i class="fas fa-file-pdf"></i> Download PDF

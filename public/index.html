@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing, Employee Relations">
-  <title>Ricky Putra F. — HR & Operations Specialist</title>
+  <meta name="description" content="Ricky Putra F. - HR & Operations Professional | Recruitment, Payroll, Outsourcing">
+  <title>Ricky Putra F. — HR Specialist</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --primary: #2c3e50;
       --accent: #3498db;
-      --light: #ecf0f1;
-      --text: #333;
+      --light: #f8f9fa;
       --gray: #7f8c8d;
+      --border: #eaeaea;
     }
     * {
       margin: 0;
@@ -19,41 +20,62 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', system-ui, sans-serif;
       line-height: 1.6;
-      color: var(--text);
-      background-color: #fff;
+      color: #333;
+      background: #fff;
       padding: 20px;
     }
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
     }
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border);
     }
-    h1 {
-      font-size: 2.4rem;
+    .name {
+      font-size: 2.6rem;
       color: var(--primary);
       margin-bottom: 8px;
     }
-    .subtitle {
+    .title {
+      font-size: 1.2rem;
       color: var(--accent);
-      font-size: 1.1rem;
       margin-bottom: 16px;
     }
-    .contact {
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
       font-size: 0.95rem;
       color: var(--gray);
     }
-    section {
-      margin-bottom: 32px;
+    .contact-icons i {
+      width: 20px;
+      text-align: center;
     }
-    h2 {
-      font-size: 1.6rem;
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+    .section-title {
+      font-size: 1.4rem;
       color: var(--primary);
       margin-bottom: 16px;
       padding-bottom: 6px;
@@ -62,50 +84,70 @@
     }
     .job {
       margin-bottom: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .job:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
     .job-header {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      margin-bottom: 8px;
     }
     .job-title {
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
+      color: var(--primary);
     }
     .company {
       font-weight: 600;
-      color: var(--primary);
     }
     .date {
       color: var(--gray);
       font-style: italic;
     }
     .responsibilities {
+      padding-left: 20px;
       margin-top: 8px;
-      padding-left: 16px;
     }
     .responsibilities li {
       margin-bottom: 6px;
     }
+
+    .sidebar {
+      background: var(--light);
+      padding: 20px;
+      border-radius: 10px;
+      align-self: start;
+    }
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
     .skill-tag {
-      background: var(--light);
+      background: white;
       padding: 6px 12px;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--primary);
+      border: 1px solid #ddd;
     }
-    footer {
+
+    .qr-section {
       text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
-      color: var(--gray);
-      font-size: 0.9rem;
+      margin: 20px 0;
+    }
+    .qr-section img {
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
     }
     .download-btn {
       display: inline-block;
@@ -115,184 +157,177 @@
       text-decoration: none;
       border-radius: 6px;
       font-weight: 600;
-      margin-top: 12px;
+      margin-top: 10px;
       transition: background 0.3s;
     }
     .download-btn:hover {
       background: #2980b9;
     }
-    .qr-section {
-      margin: 24px 0;
-    }
-    .qr-section img {
-      width: 120px;
-      height: 120px;
-      margin-top: 8px;
-    }
-    @media (max-width: 600px) {
-      .job-header {
-        flex-direction: column;
-        gap: 4px;
-      }
-      h1 { font-size: 2rem; }
-      .download-btn {
-        padding: 8px 16px;
-        font-size: 0.95rem;
-      }
-      .qr-section img {
-        width: 100px;
-        height: 100px;
-      }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Ricky Putra F.</h1>
-      <div class="subtitle">Human Resources & Operations Professional</div>
-      <div class="contact">
-        📞 +62 856-0666-8161 | ✉️ Rickyputraf@gmail.com<br>
-        🌐 Sidoarjo, East Java<br>
-        🔗 linkedin.com/in/ricky-putra-febrianto
+      <h1 class="name">Ricky Putra F.</h1>
+      <div class="title">Human Resources & Operations Professional</div>
+      <div class="contact-icons">
+        <span><i class="fas fa-phone"></i> +62 856-0666-8161</span>
+        <span><i class="fas fa-envelope"></i> Rickyputraf@gmail.com</span>
+        <span><i class="fas fa-map-marker-alt"></i> Sidoarjo, East Java</span>
+        <span><i class="fab fa-linkedin"></i> linkedin.com/in/ricky-putra-febrianto</span>
       </div>
     </header>
 
-    <section>
-      <h2>About Me</h2>
-      <p>
-        Bachelor of Psychology from Airlangga University with a specialization in Industrial and Organizational Psychology. 
-        Passionate about Human Resources, especially in employee recruitment and selection. 
-        Experienced in managing teams ranging from 35 to 580 personnel across manufacturing, tech, FMCG, education, and food service industries.
-      </p>
-    </section>
+    <div class="main-content">
+      <div class="main">
+        <section class="section">
+          <h2 class="section-title">About Me</h2>
+          <p>
+            Bachelor of Psychology from Airlangga University with a specialization in Industrial and Organizational Psychology. 
+            Passionate about Human Resources, especially in employee recruitment and selection. 
+            Experienced in managing teams ranging from 35 to 580 personnel across manufacturing, tech, FMCG, education, and food service industries.
+          </p>
+        </section>
 
-    <section>
-      <h2>Work Experience</h2>
+        <section class="section">
+          <h2 class="section-title">Work Experience</h2>
 
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">Relationship Officer</span> at <span class="company">PT Shelter Indonesia</span></div>
-          <div class="date">Jan 2025 – Present</div>
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">Relationship Officer</span> at <span class="company">PT Shelter Indonesia</span></div>
+              <div class="date">Jan 2025 – Present</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Managing workforce for client PT Bayer Indonesia (80 manpower)</li>
+              <li>Handling recruitment, coaching, employee administration, payroll, and disciplinary actions</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">Project Officer Area</span> at <span class="company">PT FORDE INDONESIA</span></div>
+              <div class="date">Dec 2023 – Dec 2024</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Managed workforce for PT Mengniu Dairy Indonesia (50) and PT Cosmo Technology Indonesia / REALME (580)</li>
+              <li>Responsible for recruitment, coaching, payroll, employee administration, and disciplinary procedures</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">Human Resources Area</span> at <span class="company">PT CATUR MULIA MANDIRI</span></div>
+              <div class="date">Oct 2022 – Dec 2023</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Handled 225 manpower for PT Multi Spunindo Jaya (Non-Woven Manufacture)</li>
+              <li>Managed recruitment, shift scheduling, BPJS, PKWT, disciplinary actions, and emergency labor supply</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">HR Development Staff</span> at <span class="company">PT FIRST INDONESIA REFURBISH MANUFACTURING</span></div>
+              <div class="date">May 2022 – Sep 2022</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Recruitment & selection, SOP creation, employee assessments, PKWT, payroll, outsourcing, BPJS</li>
+              <li>Managed 60 manpower across departments</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">Operational Specialist</span> at <span class="company">INHIVEN DESIGN</span></div>
+              <div class="date">Nov 2020 – Mar 2022</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Executed projects for clients: Luqman Al Hakim High School & BECIS Indonesia</li>
+              <li>Handled recruitment, supplier/client communication, and website management</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">Operations Support</span> at <span class="company">Dapur Dewi Kahyangan Sidoarjo</span></div>
+              <div class="date">Jun 2019 – Jan 2020</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Recruited staff, scheduled shifts, monitored SOPs, managed payroll (35 manpower)</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <div><span class="job-title">HR Intern</span> at <span class="company">PT Thong Putra Jayasentosa</span></div>
+              <div class="date">Jun 2017 – Aug 2017</div>
+            </div>
+            <ul class="responsibilities">
+              <li>Managed branch files, selected assessment tools, explained work agreements to new hires</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Education</h2>
+          <div class="job">
+            <div class="job-header">
+              <div class="company">Airlangga University</div>
+              <div class="date">Graduated 2022</div>
+            </div>
+            <p>Bachelor of Psychology (Industrial and Organizational Psychology)</p>
+            <p>Focus: Human behavior in organizations, recruitment, performance, and organizational development.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Certifications</h2>
+          <ul class="responsibilities">
+            <li>HR Staff Certified – BNSP</li>
+            <li>Competency-Based Interview in Recruitment – Mekari University</li>
+            <li>Managing a Multigenerational Workforce – LinkedIn Learning</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="sidebar">
+        <section class="section">
+          <h3 class="section-title">Skills</h3>
+          <div class="skills">
+            <span class="skill-tag">HR Recruitment</span>
+            <span class="skill-tag">Payroll Admin</span>
+            <span class="skill-tag">Employee Relations</span>
+            <span class="skill-tag">HR Outsourcing</span>
+            <span class="skill-tag">PKWT</span>
+            <span class="skill-tag">BPJS</span>
+            <span class="skill-tag">Labor Law</span>
+            <span class="skill-tag">Operational Support</span>
+            <span class="skill-tag">Workforce Planning</span>
+          </div>
+        </section>
+
+        <div class="qr-section">
+          <p>📱 Scan to view resume</p>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.space" alt="QR Code">
+          <br>
+          <a href="resume.pdf" download="Ricky_Putra_Resume_2025.pdf" class="download-btn">
+            <i class="fas fa-file-pdf"></i> Download PDF
+          </a>
         </div>
-        <ul class="responsibilities">
-          <li>Managing workforce for client PT Bayer Indonesia (80 manpower)</li>
-          <li>Handling recruitment, coaching, employee administration, payroll, and disciplinary actions</li>
-        </ul>
       </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">Project Officer Area</span> at <span class="company">PT FORDE INDONESIA</span></div>
-          <div class="date">Dec 2023 – Dec 2024</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Managed workforce for PT Mengniu Dairy Indonesia (50) and PT Cosmo Technology Indonesia / REALME (580)</li>
-          <li>Responsible for recruitment, coaching, payroll, employee administration, and disciplinary procedures</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">Human Resources Area</span> at <span class="company">PT CATUR MULIA MANDIRI</span></div>
-          <div class="date">Oct 2022 – Dec 2023</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Handled 225 manpower for PT Multi Spunindo Jaya (Non-Woven Manufacture)</li>
-          <li>Managed recruitment, shift scheduling, BPJS, PKWT, disciplinary actions, and emergency labor supply</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">HR Development Staff</span> at <span class="company">PT FIRST INDONESIA REFURBISH MANUFACTURING</span></div>
-          <div class="date">May 2022 – Sep 2022</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Recruitment & selection, SOP creation, employee assessments, PKWT, payroll, outsourcing, BPJS</li>
-          <li>Managed 60 manpower across departments</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">Operational Specialist</span> at <span class="company">INHIVEN DESIGN</span></div>
-          <div class="date">Nov 2020 – Mar 2022</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Executed projects for clients: Luqman Al Hakim High School & BECIS Indonesia</li>
-          <li>Handled recruitment, supplier/client communication, and website management</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">Operations Support</span> at <span class="company">Dapur Dewi Kahyangan Sidoarjo</span></div>
-          <div class="date">Jun 2019 – Jan 2020</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Recruited staff, scheduled shifts, monitored SOPs, managed payroll (35 manpower)</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <div><span class="job-title">HR Intern</span> at <span class="company">PT Thong Putra Jayasentosa</span></div>
-          <div class="date">Jun 2017 – Aug 2017</div>
-        </div>
-        <ul class="responsibilities">
-          <li>Managed branch files, selected assessment tools, explained work agreements to new hires</li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <h2>Education</h2>
-      <div class="job">
-        <div class="job-header">
-          <div class="company">Airlangga University</div>
-          <div class="date">Graduated 2022</div>
-        </div>
-        <p>Bachelor of Psychology (Industrial and Organizational Psychology)</p>
-        <p>Focus: Human behavior in organizations, recruitment, performance, and organizational development.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>Certifications</h2>
-      <ul class="responsibilities">
-        <li>HR Staff Certified – BNSP</li>
-        <li>Competency-Based Interview in Recruitment – Mekari University</li>
-        <li>Managing a Multigenerational Workforce – LinkedIn Learning</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Skills</h2>
-      <div class="skills">
-        <span class="skill-tag">HR Recruitment</span>
-        <span class="skill-tag">Payroll Administration</span>
-        <span class="skill-tag">Employee Relations</span>
-        <span class="skill-tag">HR Outsourcing</span>
-        <span class="skill-tag">Contract Recruitment (PKWT)</span>
-        <span class="skill-tag">Labor & Employment Law</span>
-        <span class="skill-tag">Operational Support</span>
-        <span class="skill-tag">BPJS Administration</span>
-        <span class="skill-tag">Disciplinary Actions</span>
-        <span class="skill-tag">Workforce Planning</span>
-      </div>
-    </section>
+    </div>
 
     <footer>
-      <div class="qr-section">
-        <p>📱 Scan to view this resume on your phone:</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rickyputraf.netlify.app"
-             alt="QR Code to Ricky's Resume">
-      </div>
       <p>© 2025 Ricky Putra F. | Optimized for ATS & Human Readers</p>
-      <a href="resume.pdf" download="Ricky_Putra_Resume_2025.pdf" class="download-btn">
-        📄 Download PDF Resume
-      </a>
     </footer>
   </div>
 </body>

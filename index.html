@@ -185,6 +185,12 @@
       padding: 20px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
     }
 
     .feature-header {
@@ -240,6 +246,50 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s;
+    }
+    .popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .popup-content {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .popup h3 {
+      color: var(--bayer-blue);
+      margin-bottom: 12px;
+    }
+    .popup p {
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .popup-btn {
+      background: var(--bayer-blue);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     /* Responsive */
     @media (min-width: 540px) and (orientation: landscape) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -258,7 +308,6 @@
         <div class="logo-bayer">
           <i></i><span>Bayer Cropscience</span><i></i>
         </div>
-        
       </a>
     </div>
   </header>
@@ -289,7 +338,7 @@
             <div class="stat-label">Jadwal Aktif</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value" id="stat-employees">52</div>
+            <div class="stat-value" id="stat-employees">139</div>
             <div class="stat-label">Karyawan</div>
           </div>
         </div>
@@ -316,7 +365,8 @@
         <h2 class="section-title">🔧 Fitur Utama</h2>
         
         <div class="feature-grid">
-          <div class="feature-card">
+          <!-- ✅ Input Data Karyawan → arahkan ke URL -->
+          <div class="feature-card" onclick="window.location.href='https://update-9co.pages.dev/'">
             <div class="feature-header">
               <div class="feature-icon">📋</div>
               <h3 class="feature-title">Input Data Karyawan</h3>
@@ -324,23 +374,26 @@
             <p class="feature-desc">Form online untuk registrasi & update data karyawan — langsung tersinkron ke database pusat.</p>
           </div>
           
-          <div class="feature-card">
+          <!-- ⏳ Penilaian → popup -->
+          <div class="feature-card" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon green">⭐</div>
               <h3 class="feature-title">Penilaian Harian</h3>
             </div>
-            <p class="feature-desc">Operator beri penilaian 1-5 setiap hari — sistem otomatis rekap KPI per individu & tim.</p>
+            <p class="feature-desc">Operator beri penilaian 1-4 setiap hari — sistem otomatis rekap KPI per individu & tim.</p>
           </div>
           
-          <div class="feature-card">
+          <!-- ⏳ Jadwal → popup -->
+          <div class="feature-card" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon gray">📅</div>
               <h3 class="feature-title">Jadwal Rolling</h3>
             </div>
-            <p class="feature-desc">Kelola jadwal kerja mingguan dengan drag & drop — notifikasi otomatis ke karyawan.</p>
+            <p class="feature-desc">Kelola jadwal kerja mingguan sesuai kebutuhan klien, mengedepankan kompetensi dan disiplin.</p>
           </div>
           
-          <div class="feature-card">
+          <!-- ⏳ Rekap → popup -->
+          <div class="feature-card" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon green">📊</div>
               <h3 class="feature-title">Rekap & Laporan</h3>
@@ -353,7 +406,7 @@
 
     <section class="cta">
       <div class="container">
-        <a href="https://work.rickyputraf.space" class="btn" target="_blank">
+        <a href="https://update-9co.pages.dev/" class="btn" target="_blank">
           Akses Sistem Internal →
         </a>
       </div>
@@ -367,14 +420,38 @@
     </div>
   </footer>
 
+  <!-- Popup Modal -->
+  <div class="popup" id="comingSoonPopup">
+    <div class="popup-content">
+      <h3>ℹ️ Sedang Dikembangkan</h3>
+      <p>Fitur ini sedang dalam pengembangan.<br><strong>Coming soon!</strong></p>
+      <button class="popup-btn" onclick="hidePopup()">OK</button>
+    </div>
+  </div>
+
   <script>
+    // Popup control
+    function showPopup() {
+      document.getElementById('comingSoonPopup').classList.add('active');
+    }
+    function hidePopup() {
+      document.getElementById('comingSoonPopup').classList.remove('active');
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('comingSoonPopup').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('comingSoonPopup')) {
+        hidePopup();
+      }
+    });
+
     // Simulasi live update statistik
     document.addEventListener('DOMContentLoaded', () => {
       const stats = {
         attendance: { el: 'stat-attendance', base: 95, max: 100 },
         rating: { el: 'stat-rating', base: 4.2, max: 5.0 },
         schedule: { el: 'stat-schedule', base: 25, max: 30 },
-        employees: { el: 'stat-employees', base: 50, max: 60 }
+        employees: { el: 'stat-employees', base: 139, max: 150 }
       };
 
       Object.entries(stats).forEach(([key, config]) => {

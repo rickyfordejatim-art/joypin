@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="description" content="Sistem Administrasi Karyawan — PT Shelter Indonesia Gemilang | Site Bayer Indonesia" />
   <title>PT Shelter Indonesia Gemilang — Site Bayer Indonesia</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230055A4%22>B</text></svg>">
+  <link rel="icon" href="image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230055A4%22>B</text></svg>">
   <style>
-    /* === Bayer Brand Colors === */
+    /* === Global === */
     :root {
       --bayer-blue: #0055A4;
       --bayer-green: #00A88F;
@@ -17,10 +17,11 @@
       --text: var(--bayer-gray);
       --text-secondary: #666666;
       --border: #E0E0E0;
-      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 24px rgba(0,85,164,0.15);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Dark mode (opsional) */
     @media (prefers-color-scheme: dark) {
       :root {
         --light-bg: #0A0A0A;
@@ -37,6 +38,7 @@
       background-color: var(--light-bg);
       color: var(--text);
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     .container {
@@ -46,13 +48,23 @@
       padding: 0 16px;
     }
 
-    /* Header */
+    /* === Smooth Scroll === */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* === Header === */
     header {
       background: var(--bayer-blue);
       padding: 14px 0;
       position: sticky;
       top: 0;
       z-index: 100;
+      transform: translateY(-100%);
+      animation: slideIn 0.8s var(--ease) forwards;
+    }
+    @keyframes slideIn {
+      to { transform: translateY(0); }
     }
 
     .header-content {
@@ -83,10 +95,25 @@
     .logo-bayer i:last-child { background: var(--bayer-green); }
     .logo-bayer span { font-weight: bold; }
 
-    /* Hero */
+    /* === Reveal Animation === */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+    .fade-up.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+
+    /* === Hero === */
     .hero {
       text-align: center;
-      padding: 32px 0 24px;
+      padding: 40px 0 28px;
       background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
       border-bottom: 3px solid var(--bayer-blue);
     }
@@ -96,30 +123,45 @@
       font-weight: 800;
       margin-bottom: 14px;
       color: var(--text);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.6s var(--ease) 0.2s both;
     }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .hero h1 .blue { color: var(--bayer-blue); }
     .hero p {
       font-size: 1.05rem;
       color: var(--text-secondary);
       max-width: 550px;
       margin: 0 auto 24px;
+      opacity: 0;
+      animation: fadeIn 0.6s var(--ease) 0.4s both;
     }
+    @keyframes fadeIn { to { opacity: 1; } }
 
-    /* Stats */
-    .dashboard { padding: 24px 0; }
+    /* === Stats === */
+    .dashboard { padding: 32px 0 20px; }
+
     .section-title {
       font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       padding-left: 6px;
       border-left: 4px solid var(--bayer-blue);
+      opacity: 0;
+      transform: translateX(-10px);
+      animation: fadeInLeft 0.6s var(--ease) 0.1s both;
     }
+    @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .stat-card {
@@ -129,26 +171,40 @@
       text-align: center;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      opacity: 0;
+      transform: scale(0.95);
+      animation: popIn 0.5s var(--ease) forwards;
     }
+    @keyframes popIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    .stat-card:nth-child(1) { animation-delay: 0.2s; }
+    .stat-card:nth-child(2) { animation-delay: 0.3s; }
+    .stat-card:nth-child(3) { animation-delay: 0.4s; }
+    .stat-card:nth-child(4) { animation-delay: 0.5s; }
 
     .stat-value {
       font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 8px;
+      display: inline-block;
     }
     .stat-value.attendance { color: var(--bayer-green); }
     .stat-value.rating { color: var(--bayer-blue); }
 
     .stat-label { font-size: 0.9rem; color: var(--text-secondary); }
 
-    /* Chart */
+    /* === Chart === */
     .chart-container {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 20px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s var(--ease) 0.6s both;
     }
 
     .chart-header {
@@ -169,11 +225,16 @@
       flex: 1;
       background: var(--bayer-green);
       border-radius: 4px 4px 0 0;
-      transition: height 0.8s ease;
+      height: 0;
+      animation: growBar 1s var(--ease) 0.8s forwards;
+    }
+    @keyframes growBar {
+      to { height: var(--target-height, 80%); }
     }
 
-    /* Features */
-    .features { padding: 24px 0; }
+    /* === Features === */
+    .features { padding: 28px 0; }
+
     .feature-grid {
       display: grid;
       gap: 20px;
@@ -186,11 +247,31 @@
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
       cursor: pointer;
-      transition: transform 0.2s;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s var(--ease);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      background: rgba(0,85,164,0.1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+      z-index: 0;
     }
 
     .feature-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-card:active::before {
+      width: 400px;
+      height: 400px;
     }
 
     .feature-header {
@@ -198,6 +279,8 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
     }
 
     .feature-icon {
@@ -210,55 +293,82 @@
       align-items: center;
       justify-content: center;
       font-size: 1.3rem;
+      flex-shrink: 0;
     }
     .feature-icon.green { background: var(--bayer-green); }
     .feature-icon.gray { background: var(--bayer-gray); }
 
-    .feature-title { font-weight: 600; font-size: 1.15rem; margin-bottom: 8px; }
-    .feature-desc { font-size: 0.95rem; color: var(--text-secondary); }
+    .feature-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
 
-    /* CTA */
-    .cta { padding: 32px 0; text-align: center; }
+    /* === CTA === */
+    .cta { padding: 36px 0; text-align: center; }
     .btn {
       display: inline-block;
       background: var(--bayer-blue);
       color: white;
-      padding: 16px 32px;
+      padding: 16px 36px;
       border-radius: 12px;
       font-size: 1.1rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s;
-      box-shadow: 0 4px 10px rgba(0,85,164,0.2);
+      transition: all 0.3s var(--ease);
+      box-shadow: 0 4px 12px rgba(0,85,164,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
     }
     .btn:hover {
       background: #00478a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(0,85,164,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,85,164,0.3);
+    }
+    .btn:hover::before {
+      left: 100%;
     }
 
-    /* Footer */
+    /* === Footer === */
     footer {
-      padding: 28px 0 20px;
+      padding: 32px 0 24px;
       text-align: center;
       color: var(--text-secondary);
       font-size: 0.9rem;
       border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeIn 0.8s var(--ease) 1.2s both;
     }
 
-    /* Popup */
+    /* === Popup === */
     .popup {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s;
+      transition: opacity 0.4s var(--ease);
     }
     .popup.active {
       opacity: 1;
@@ -266,38 +376,51 @@
     }
     .popup-content {
       background: white;
-      padding: 24px;
-      border-radius: 12px;
-      max-width: 400px;
+      padding: 28px;
+      border-radius: 14px;
+      max-width: 420px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      transform: scale(0.9);
+      transition: transform 0.4s var(--ease);
+    }
+    .popup.active .popup-content {
+      transform: scale(1);
     }
     .popup h3 {
       color: var(--bayer-blue);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      font-size: 1.4rem;
     }
     .popup p {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       color: var(--text);
+      line-height: 1.6;
     }
     .popup-btn {
       background: var(--bayer-blue);
       color: white;
       border: none;
-      padding: 10px 24px;
-      border-radius: 8px;
+      padding: 12px 28px;
+      border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .popup-btn:hover {
+      background: #00478a;
+      transform: scale(1.03);
     }
 
-    /* Responsive */
+    /* === Responsive === */
     @media (min-width: 540px) and (orientation: landscape) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (min-width: 768px) {
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
       .hero h1 { font-size: 2.3rem; }
-      .btn { padding: 18px 40px; }
+      .btn { padding: 18px 44px; }
     }
   </style>
 </head>
@@ -315,14 +438,14 @@
   <main>
     <section class="hero">
       <div class="container">
-        <h1>PT Shelter Indonesia Gemilang<br><span class="blue">Site Bayer Indonesia</span></h1>
-        <p>Sistem Administrasi Karyawan Terintegrasi — Real-time, Akurat, dan Efisien</p>
+        <h1 class="fade-up stagger-1">PT Shelter Indonesia Gemilang<br><span class="blue">Site Bayer Indonesia</span></h1>
+        <p class="fade-up stagger-2">Sistem Administrasi Karyawan Terintegrasi — Real-time, Akurat, dan Efisien</p>
       </div>
     </section>
 
     <section class="dashboard">
       <div class="container">
-        <h2 class="section-title">📊 Dashboard Operasional</h2>
+        <h2 class="section-title fade-up stagger-1">📊 Dashboard Operasional</h2>
         
         <div class="stats-grid">
           <div class="stat-card">
@@ -343,18 +466,18 @@
           </div>
         </div>
 
-        <div class="chart-container">
+        <div class="chart-container fade-up stagger-3">
           <div class="chart-header">
             <div class="chart-title">Tren Penilaian Minggu Ini</div>
             <div class="chart-period">Sen - Sab</div>
           </div>
           <div class="mini-chart">
-            <div class="bar" style="height: 55%"></div>
-            <div class="bar" style="height: 65%"></div>
-            <div class="bar" style="height: 80%"></div>
-            <div class="bar" style="height: 70%"></div>
-            <div class="bar" style="height: 85%"></div>
-            <div class="bar" style="height: 60%"></div>
+            <div class="bar" style="--target-height: 55%"></div>
+            <div class="bar" style="--target-height: 65%"></div>
+            <div class="bar" style="--target-height: 80%"></div>
+            <div class="bar" style="--target-height: 70%"></div>
+            <div class="bar" style="--target-height: 85%"></div>
+            <div class="bar" style="--target-height: 60%"></div>
           </div>
         </div>
       </div>
@@ -362,11 +485,10 @@
 
     <section class="features">
       <div class="container">
-        <h2 class="section-title">🔧 Fitur Utama</h2>
+        <h2 class="section-title fade-up stagger-1">🔧 Fitur Utama</h2>
         
         <div class="feature-grid">
-          <!-- ✅ Input Data Karyawan → arahkan ke URL -->
-          <div class="feature-card" onclick="window.location.href='https://update-9co.pages.dev/'">
+          <div class="feature-card fade-up stagger-1" onclick="window.location.href='https://update-9co.pages.dev/'">
             <div class="feature-header">
               <div class="feature-icon">📋</div>
               <h3 class="feature-title">Input Data Karyawan</h3>
@@ -374,8 +496,7 @@
             <p class="feature-desc">Form online untuk registrasi & update data karyawan — langsung tersinkron ke database pusat.</p>
           </div>
           
-          <!-- ⏳ Penilaian → popup -->
-          <div class="feature-card" onclick="showPopup()">
+          <div class="feature-card fade-up stagger-2" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon green">⭐</div>
               <h3 class="feature-title">Penilaian Harian</h3>
@@ -383,8 +504,7 @@
             <p class="feature-desc">Operator beri penilaian 1-4 setiap hari — sistem otomatis rekap KPI per individu & tim.</p>
           </div>
           
-          <!-- ⏳ Jadwal → popup -->
-          <div class="feature-card" onclick="showPopup()">
+          <div class="feature-card fade-up stagger-3" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon gray">📅</div>
               <h3 class="feature-title">Jadwal Rolling</h3>
@@ -392,8 +512,7 @@
             <p class="feature-desc">Kelola jadwal kerja mingguan sesuai kebutuhan klien, mengedepankan kompetensi dan disiplin.</p>
           </div>
           
-          <!-- ⏳ Rekap → popup -->
-          <div class="feature-card" onclick="showPopup()">
+          <div class="feature-card fade-up stagger-4" onclick="showPopup()">
             <div class="feature-header">
               <div class="feature-icon green">📊</div>
               <h3 class="feature-title">Rekap & Laporan</h3>
@@ -413,63 +532,74 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="fade-up stagger-3">
     <div class="container">
       <p>© 2025 PT Shelter Indonesia Gemilang — Site Bayer Indonesia</p>
       <p><small>Sistem dikembangkan oleh: rickyputraf</small></p>
     </div>
   </footer>
 
-  <!-- Popup Modal -->
+  <!-- Popup -->
   <div class="popup" id="comingSoonPopup">
     <div class="popup-content">
       <h3>ℹ️ Sedang Dikembangkan</h3>
-      <p>Fitur ini sedang dalam pengembangan.<br><strong>Coming soon!</strong></p>
-      <button class="popup-btn" onclick="hidePopup()">OK</button>
+      <p>Fitur ini sedang dalam tahap pengembangan.<br><strong>Coming soon!</strong></p>
+      <button class="popup-btn" onclick="hidePopup()">Mengerti</button>
     </div>
   </div>
 
   <script>
-    // Popup control
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('appear');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Popup
     function showPopup() {
       document.getElementById('comingSoonPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
     function hidePopup() {
       document.getElementById('comingSoonPopup').classList.remove('active');
+      document.body.style.overflow = '';
     }
 
-    // Close popup when clicking outside
     document.getElementById('comingSoonPopup').addEventListener('click', (e) => {
       if (e.target === document.getElementById('comingSoonPopup')) {
         hidePopup();
       }
     });
 
-    // Simulasi live update statistik
+    // Count-up animation for stats
     document.addEventListener('DOMContentLoaded', () => {
-      const stats = {
-        attendance: { el: 'stat-attendance', base: 95, max: 100 },
-        rating: { el: 'stat-rating', base: 4.2, max: 5.0 },
-        schedule: { el: 'stat-schedule', base: 25, max: 30 },
-        employees: { el: 'stat-employees', base: 139, max: 150 }
+      const statElements = {
+        attendance: { el: document.getElementById('stat-attendance'), target: 96, unit: '%' },
+        rating: { el: document.getElementById('stat-rating'), target: 4.3, unit: '' },
+        schedule: { el: document.getElementById('stat-schedule'), target: 28, unit: '' },
+        employees: { el: document.getElementById('stat-employees'), target: 139, unit: '' }
       };
 
-      Object.entries(stats).forEach(([key, config]) => {
-        const el = document.getElementById(config.el);
-        let value = config.base;
-        
-        setInterval(() => {
-          const change = (Math.random() > 0.5 ? 1 : -1) * Math.floor(Math.random() * 3);
-          value = Math.max(config.base - 2, Math.min(config.max, value + change));
-          
-          if (key === 'attendance') {
-            el.textContent = `${Math.round(value)}%`;
-          } else if (key === 'rating') {
-            el.textContent = value.toFixed(1);
-          } else {
-            el.textContent = value;
+      Object.values(statElements).forEach(item => {
+        let start = 0;
+        const duration = 2000;
+        const stepTime = Math.abs(Math.floor(duration / item.target));
+        const timer = setInterval(() => {
+          start += item.target > 10 ? 1 : 0.1;
+          if (item.unit === '%') {
+            item.el.textContent = `${Math.min(Math.round(start), item.target)}${item.unit}`;
+          } else if (item.unit === '') {
+            item.el.textContent = (item.target > 10) 
+              ? Math.min(Math.round(start), item.target)
+              : Math.min(start.toFixed(1), item.target);
           }
-        }, 5000 + Math.random() * 5000);
+          if (start >= item.target) clearInterval(timer);
+        }, stepTime);
       });
     });
   </script>
